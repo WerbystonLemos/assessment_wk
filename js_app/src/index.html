@@ -4,10 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS App</title>
+  <link rel="stylesheet" href="./asset/css/index.css" />
+  <link rel="stylesheet" href="./asset/css/main.css" />
 </head>
 <body>
 
-    <h1>Funcionando!!!</h1>
+    <div id="containerMain" class="container">
+
+        <div id="sideLeft">
+            <img id="img_logo" src="./asset/img/logo.png" alt="logo" />
+            <span id="text_primary">Não tem uma conta?</span>
+            <span id="text-secundary">
+                Registre-se para ter acesso aos nossos inúmeros serviços.
+                Ponha seu negócio em primeiro lugar.
+            </span>
+            <div id="containerSocials">
+                In | GH 
+            </div>
+        </div>
+
+        <div id="sideRight">
+            <div id="containerForm">
+                
+                <h1>Registre-se</h1>
+
+                <form action="#">
+                    
+                    <label for="input_name">Nome</label>
+                    <input id="input_name" class="input_form" type="text" placeholder="Digite seu nome" />
+
+                    <label for="input_email">Email</label>
+                    <input id="input_email" class="input_form" type="email" placeholder="Digite seu email" />
+
+                    <label for="input_pass">Senha</label>
+                    <input id="input_pass" class="input_form" type="password" placeholder="Digite sua senha" />
+
+                    <label for="input_counterpass">Confirme sua Senha</label>
+                    <input id="input_counterpass" class="input_form" type="text" placeholder="Digite seu nome" />
+
+                    <div class="groupForm">
+                        <input id="btn_submit" class="btn btn_form_action" type="submit" value="Registrar">
+                        <input id="btn_reset" class="btn btn_form_action" type="reset" value="Cancelar">
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
     
     <script type="module" src="./main.js"></script>
 </body>

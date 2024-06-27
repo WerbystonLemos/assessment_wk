@@ -1,0 +1,29 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+.btn
+{
+    cursor: pointer;
+    border: none;
+    box-shadow: none;
+}
+:root
+{
+    /* --var-color-fir: #80756f; */
+    /* --var-color-sec: #6d645f; */
+    /* --var-color-ter: #5b534f; */
+    /* --var-color-qua: #49423f; */
+    /* --var-color-qui: #36322f; */
+    /* --var-color-sex: #24211f; */
+    
+    --var-color-fir: #80756F;
+    --var-color-sec: #C99578;
+    --var-color-ter: #5C5450;
+    --var-color-qua: #4A2F20;
+    --var-color-qui: #361C0E;
+    --var-color-sex: #24130B;
+    --text-light:    #a7a19e
+}
