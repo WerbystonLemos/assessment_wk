@@ -10,7 +10,7 @@ btnSubmitFrom.addEventListener('click', () => {
     let nome        = document.querySelector("#input_name").value
     let email       = document.querySelector("#input_email").value
     let senha       = document.querySelector("#input_pass").value
-    let contraSenha = document.querySelector("#input_pass").value
+    let contraSenha = document.querySelector("#input_counterpass").value
 
     // validar dados
     if (!validaDados( nome, email, senha, contraSenha ))
@@ -88,18 +88,18 @@ function validaEmail(email)
 }
 function validaSenha(senha)
 {
-    document.querySelector("#ContainerSenha").innerHTML = ` `
+    document.querySelector("#ContainerErroSenha").innerHTML = ` `
     // obrigatorio
     if( !(senha && senha.length > 0 && senha.length != "" ))
     {
-        document.querySelector("#ContainerErroEmail").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">Senha inválido</span><br/>`
+        document.querySelector("#ContainerErroSenha").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">Senha inválido</span><br/>`
         return false
     }
         
     // 0>maiuscula && 0>minuscula 
     if( !(/[A-Z][a-z]/.test(senha) && ( /\d/.test(senha) )) )
     {
-        document.querySelector("#ContainerErroEmail").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">SenhaDeve possuir pelo menos 1 letra maiúscula, 1 minúscula e 1 número</span><br/>`
+        document.querySelector("#ContainerErroSenha").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">SenhaDeve possuir pelo menos 1 letra maiúscula, 1 minúscula e 1 número</span><br/>`
         return false
     }
     return true;
@@ -108,11 +108,10 @@ function validaContraSenha( senha, contraSenha)
 {
     document.querySelector("#ContainerErroContrasenha").innerHTML = ` `
     // obrigatorio
-    if( !(contraSenha && contraSenha.length > 0 && contraSenha != "" ) && (!( senha == contraSenha )) )
+    if( !(contraSenha && contraSenha.length > 0 && contraSenha != "" ) || (!( senha === contraSenha )) )
     {
         document.querySelector("#ContainerErroContrasenha").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">As Senhas devem ser igauis</span><br/>`
         return false
-
     }
     
     return true
