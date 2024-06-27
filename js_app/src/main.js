@@ -78,6 +78,7 @@ function validaEmail(email)
         && (email.length > 0) 
         && (email != "") 
         && email.includes('@') 
+        && email.includes('.net') 
         && email.includes('.com') ))
     {
         document.querySelector("#ContainerErroEmail").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">Email inválido</span><br/>`
