@@ -4,8 +4,8 @@ formHtml.addEventListener("submit", (event) => {
 })
 
 
-let a = document.querySelector("#btn_submit")
-a.addEventListener('click', () => {
+let btnSubmitFrom = document.querySelector("#btn_submit")
+btnSubmitFrom.addEventListener('click', () => {
     
     let nome        = document.querySelector("#input_name").value
     let email       = document.querySelector("#input_email").value
@@ -13,7 +13,10 @@ a.addEventListener('click', () => {
     let contraSenha = document.querySelector("#input_pass").value
 
     // validar dados
-    validaDados( nome, email, senha, contraSenha )
+    if (!validaDados( nome, email, senha, contraSenha ))
+    {
+        return;
+    }
 
     let dadosForm = JSON.stringify({
         'nome' : nome,
@@ -35,14 +38,9 @@ a.addEventListener('click', () => {
             return data.json()
         })
         .then( (res) => {
-            if (res.erro)
-            {
-                alert(res.tipoErro)
-            }
-            else
-            {
-                alert("Sucesso")
-            }
+
+            let msg = (res.erro) ? res.tipoErro :  "Sucesso"
+            alert( msg )
             formHtml.reset()
         })
         .catch( (err) => {
@@ -52,92 +50,70 @@ a.addEventListener('click', () => {
 
 function validaDados( nome, email, senha, contraSenha )
 {
-    let resultado   = Array()
-    let msgErro     = Array()
-
-    resultado.push( validaNome(nome) )
-    resultado.push( validaEmail(email) )
-    resultado.push( validaSenha(senha) )
-    resultado.push( validaContraSenha(senha, contraSenha) )
-
-    for (let i = 0; i < resultado.length; i++)
+    if( validaNome(nome) 
+        && validaEmail(email)
+        && validaSenha(senha)
+        && validaContraSenha(senha, contraSenha) )
     {
-        for (let cont = 0; cont < resultado[i].length; cont++)
-        {
-            if (resultado[i][cont][1] != 'false' )
-            {
-                msgErro.push(resultado[i][cont][1])
-            }                
-        }
-        
+        return true
     }
-
-    console.log(msgErro)
-    // return msgErro
+    return false
 }
-
 function validaNome(nome)
 {
-    let resultado = (nome && nome.length > 0 && nome != "" )
-        ? [['erro', 'false']]
-        : [['erro', 'Nome inválido']]
-        
-    return resultado
+    document.querySelector("#ContainerErroNome").innerHTML = ` `
+    if(!(nome && nome.length > 0 && nome != "" ))
+    {
+        document.querySelector("#ContainerErroNome").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">Nome inválido</span><br/><br/>`
+        return false
+    }
+    
+    return true
 }
 function validaEmail(email)
 {
+    document.querySelector("#ContainerErroEmail").innerHTML = ` `
     // obrigatorio
-    let resultado = Array()
-    let validarequired = (email && (email.length > 0) && (email != "") )
-        ? ['erro', 'false'] 
-        : ['erro', 'Nome inválido'] 
-           
-    // valido
-    let validaFormaEmail  = ( email.includes('@') && email.includes('.com') )
-        ? ['erro', 'false']
-        : ['erro', 'Email inválido']
-
-    resultado.push(validaFormaEmail)
-    resultado.push(validarequired)
-    return resultado;
+    if(!( email 
+        && (email.length > 0) 
+        && (email != "") 
+        && email.includes('@') 
+        && email.includes('.com') ))
+    {
+        document.querySelector("#ContainerErroEmail").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">Email inválido</span><br/>`
+        return false
+    }
+    
+    return true;
 }
 function validaSenha(senha)
 {
-    let resultado = Array()
+    document.querySelector("#ContainerSenha").innerHTML = ` `
     // obrigatorio
-    let validaQtdSenha = (senha && senha.length > 0 && senha.length != "" )
-        ? ['erro', 'false']
-        : ['erro', 'Nome inválido']
+    if( !(senha && senha.length > 0 && senha.length != "" ))
+    {
+        document.querySelector("#ContainerErroEmail").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">Senha inválido</span><br/>`
+        return false
+    }
         
     // 0>maiuscula && 0>minuscula 
-    let validaCaracteres = ( /[A-Z][a-z]/.test(senha) )
-        ? ['erro', 'false']
-        : ['erro', 'Formação de senha inválida']
-
-    // 0>numero
-    let validaNumero = ( /\d/.test(senha) )
-        ? ['erro', 'false']
-        : ['erro', 'Quantidade de digitos da senha inválidos']
-    
-    resultado.push(validaQtdSenha)
-    resultado.push(validaCaracteres)
-    resultado.push(validaNumero)
-    return resultado;
+    if( !(/[A-Z][a-z]/.test(senha) && ( /\d/.test(senha) )) )
+    {
+        document.querySelector("#ContainerErroEmail").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">SenhaDeve possuir pelo menos 1 letra maiúscula, 1 minúscula e 1 número</span><br/>`
+        return false
+    }
+    return true;
 }
 function validaContraSenha( senha, contraSenha)
 {
-    let resultado = Array()
+    document.querySelector("#ContainerErroContrasenha").innerHTML = ` `
     // obrigatorio
-    let validaContraSenha = (contraSenha && contraSenha.length > 0 && contraSenha != "" )
-        ? ['erro', 'false']
-        : ['erro', 'Nome inválido']
-    
-    // contraSenha == senha
-    let validaIgualdade = ( senha == contraSenha )
-        ? ['erro', 'false']
-        : ['erro', 'Senhas diferentes']
+    if( !(contraSenha && contraSenha.length > 0 && contraSenha != "" ) && (!( senha == contraSenha )) )
+    {
+        document.querySelector("#ContainerErroContrasenha").innerHTML = `<span style="font-size:13px; color:rgb(255, 0, 0)">As Senhas devem ser igauis</span><br/>`
+        return false
 
-    resultado.push(validaContraSenha)
-    resultado.push(validaIgualdade)
-    return resultado
+    }
+    
+    return true
 }
