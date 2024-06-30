@@ -1,0 +1,52 @@
+body
+{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body::before
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../assets/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(15px);
+    z-index: -1;
+    opacity: 0.7;
+}
+#containerMain
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../assets/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    width: 80vw;
+    height: 90vh;
+    box-shadow: 10px 10px 10px var(--var-color-sex);
+    border-radius: 20px;
+}
+/* RESPONSIVIDADE TABLET */
+@media only screen and (max-width: 768px)
+{
+    #containerMain
+    {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        border-radius: 0;
+    }    
+}
